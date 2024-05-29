@@ -12,7 +12,7 @@ const MongoStore = require("connect-mongo");
 
 
 // app.use(cors({credentials:true,origin:true}))
-app.use(cors({credentials:true,origin:"http://localhost:5173"}))
+app.use(cors({credentials:true,origin:process.env.BASE_URL}))
 
 
 // body parser
