@@ -1,4 +1,4 @@
-require("dotenv").config({path:"./.env"})
+require("dotenv").config({ path: "./.env" })
 const express = require("express")
 const app = express()
 const logger = require("morgan")
@@ -12,33 +12,33 @@ const MongoStore = require("connect-mongo");
 
 
 // app.use(cors({credentials:true,origin:true}))
-app.use(cors({credentials:true,origin:process.env.BASE_URL}))
+app.use(cors({ credentials: true, origin: process.env.BASE_URL }))
 
 
 // body parser
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
 // session and cookie
 
 const store = MongoStore.create({
-    mongoUrl:process.env.MONGO_URL,
-    crypto:{
-        secret:process.env.SEESION_SECRET
+    mongoUrl: process.env.MONGO_URL,
+    crypto: {
+        secret: process.env.SEESION_SECRET
     },
-    touchAfter:24*3600
+    touchAfter: 24 * 3600
 })
 
 app.use(session({
-    store:store,
-    resave:true,
-    saveUninitialized:true,
-    secret:process.env.SEESION_SECRET
+    store: store,
+    resave: true,
+    saveUninitialized: true,
+    secret: process.env.SEESION_SECRET
 }))
 
-store.on("error",()=>{
-    console.log("error in mongostore",err)
+store.on("error", () => {
+    console.log("error in mongostore", err)
 })
 
 app.use(cookieparser())
@@ -64,8 +64,8 @@ app.use('/employe', require("./routes/employeRoutes"))
 
 
 // wildcard route
-app.all("*",(req,res,next)=>{
-next(new Errorhandler(`Requested URL not found ${req.url}`,404))
+app.all("*", (req, res, next) => {
+    next(new Errorhandler(`Requested URL not found ${req.url}`, 404))
 })
 
 //custom error handlermiddleware
