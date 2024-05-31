@@ -8,7 +8,7 @@ exports.isAuthenticated = catchAsyncError(async (req, res, next) => {
 
     if (!token) return next(new Errorhandler("Please login to access the resources!"))
 
-    const { id } = jwt.verify(token, process.env.JWT_SECRET)
+    const { id } = jwt.verify(token, process.env.JWT_SECRET )
 
     req.id = id
 
